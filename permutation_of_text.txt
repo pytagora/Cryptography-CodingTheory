@@ -1,0 +1,66 @@
+# 
+# Code 4
+# cryptography
+# cyclic permutation of text
+# http://crypto.interactive-maths.com/permutation-cipher.html
+# https://en.wikipedia.org/wiki/Cyclic_permutation
+# Valentino Skobljanec
+#
+
+help:=function(first,last,A)
+local changed, j;
+changed:="";
+Add(changed,A[last]);
+for j in [first..last - 1] do 
+    Add(changed, A[j]);
+od;
+return changed;
+end;
+
+perm:=function(A)
+local i, n, result, start, m, j, L, word;
+result:="";
+n:=Length(A);
+word:=false;
+for i in [1..n] do
+    if (A[i] = ' ' or i = n) and word = true then 
+        if A[i] = ' ' then
+            m:=(i - 2) - (start + 1) + 1;
+        else
+            m:=(i - 1) - (start + 1) + 1;
+        fi;
+        if i - start = 1 and A[i] = ' ' then
+            Add(result, A[start]);
+            Add(result, A[i]);
+            word:=false;
+        else
+            Add(result, A[start]);
+            L:="";
+            if A[i] = ' ' then
+                L:=help(start + 1,i - 2,A);
+            else
+                L:=help(start + 1,i - 1,A);
+            fi;
+            if m > 1 then            
+                Append(result, L);
+            elif m = 1 then
+                Add(result, L[m]);
+            fi; 
+            if A[i] = ' ' then 
+                Add(result, A[i-1]);
+                Add(result, A[i]);
+            else
+                Add(result, A[i]);
+            fi;
+            word:=false;
+        fi;
+    elif A[i] <> ' ' and word = false then
+        start:=i;
+        if i = n then
+            Add(result, A[i]);
+        fi;
+        word:=true;
+    fi;
+od;
+return result;
+end;
