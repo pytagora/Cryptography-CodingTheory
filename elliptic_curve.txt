@@ -1,8 +1,8 @@
 # 
-# Code 1
+# Code 3
 # cryptography
-# playfair method
-# https://en.wikipedia.org/wiki/Playfair_cipher
+# elliptic curve
+# https://en.wikipedia.org/wiki/Elliptic-curve_cryptography
 # Valentino Skobljanec
 #
 
