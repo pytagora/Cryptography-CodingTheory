@@ -1,0 +1,64 @@
+# 
+# Code 11
+# coding theory
+# golay code
+# http://mathworld.wolfram.com/GolayCode.html
+# http://mathworld.wolfram.com/PerfectCode.html
+# Valentino Skobljanec
+#
+
+LoadPackage("GUAVA");
+r:=Random([1..4]);
+if r=1 then 
+    G:= BinaryGolayCode();
+elif r=2 then
+    G:= ExtendedBinaryGolayCode();
+elif r=3 then 
+    G:=TernaryGolayCode();
+else
+    G:=ExtendedTernaryGolayCode();
+fi;
+g:=GeneratorMat(G);
+k:=Dimension(G);
+r2:=Random([1..k]);
+row:=g[r2];
+Print("Arbitrary row of generating matrix is ", row, ".\n");
+n:=Size(row);
+d:=n;
+for i in [1..k] do
+    for j in [i + 1..k] do
+        tmp:=0;
+        for l in [1..n] do 
+            if g[i][l] <> g[j][l] then
+                tmp:=tmp + 1;
+            fi;
+        od;    
+        if tmp < d then 
+            d:=tmp;
+        fi;    
+    od;
+od;
+Print("Minimum distance of code G is ", d, ".\n");
+if d mod 2 = 0 then 
+    t:=(d-2) / 2;
+else
+    t:=(d-1) / 2;
+fi;
+Print("Code can fix ", t, " mistakes.\n");
+if g[1][1] = Z(3)^0 or g[1][1] = 0 * Z(3) or g[1][1] = Z(3) then
+    q:=3;
+else
+    q:=2;
+fi;
+M:=q^k;
+sum:=0;
+it:=0;
+while it <= t do
+    sum:=sum + Binomial(n, it) * (q - 1)^it;
+    it:=it + 1;
+od;
+if M = q^n / sum then
+    Print("Chosen Golay code is a perfect code!\n");
+else
+    Print("Chosen Golay code is not a perfect code!\n");
+fi;
