@@ -1,0 +1,23 @@
+# 
+# Code 6
+# cryptography
+# bch code
+# https://en.wikipedia.org/wiki/BCH_code
+# Valentino Skobljanec
+#
+
+distance:=5;
+length:=15;
+dim:=2;
+bch:=function(length,dim,distance)
+local tmp, r, word, S;
+C:=BCHCode(length, 4, GF(dim));
+while DesignedDistance(C) <> distance do
+    tmp:=Random([1..8]);
+    C:=BCHCode(length,tmp,GF(dim));
+od;
+r:=Random([1..Size(C)]);
+word:=Elements(C)[r];
+S:=Syndrome(C,word);
+Print("Received ", word, " has syndrome ", S);
+end;
