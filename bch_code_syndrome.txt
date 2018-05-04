@@ -1,6 +1,6 @@
 # 
 # Code 6
-# cryptography
+# coding theory
 # bch code
 # https://en.wikipedia.org/wiki/BCH_code
 # Valentino Skobljanec
