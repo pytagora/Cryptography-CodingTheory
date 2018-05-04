@@ -1,0 +1,45 @@
+# 
+# Code 7
+# cryptography
+# one-time pad
+# https://en.wikipedia.org/wiki/One-time_pad
+# Valentino Skobljanec
+#
+
+convert:=function(num)
+local exp, list;
+list:=NullMat(1,8)[1];
+exp:=7;
+while num > 0 do
+    if num >= 2^(exp) then 
+        num:=num - 2^(exp);
+        list[8 - exp]:=1;
+    fi;
+    exp:=exp - 1;
+od;
+return list;
+end;
+
+OneTimePad:=function(text)
+local i, j, key, smalltext, input, result, output, value, n, m, k;
+smalltext:=LowercaseString(text);
+input:=[];
+n:=Length(smalltext);
+for i in [1..n] do 
+    value:=IntChar(smalltext[i]);
+    if value >= 97 and value <= 122 then
+        Add(input,convert(value));
+    fi;
+od;
+m:=Length(input);
+key:=[];
+for j in [1..m] do
+    Add(key,Random(Integers) mod 2);
+od;
+result:="";
+for k in [1..m] do
+    output:=(key[k] + input[k]) mod 2;
+    Add(result,output);
+od;
+return result;
+end;
