@@ -1,6 +1,6 @@
 # 
 # Code 5
-# cryptography
+# coding theory
 # polynomial code
 # https://en.wikipedia.org/wiki/Polynomial_code
 # Valentino Skobljanec
