@@ -1,0 +1,30 @@
+# 
+# Code 10
+# coding theory
+# cyclic code
+# https://en.wikipedia.org/wiki/Cyclic_code
+# https://en.wikipedia.org/wiki/Polynomial_code
+# Valentino Skobljanec
+#
+
+# generating polynomialhttps://en.wikipedia.org/wiki/Cyclic_code g(x):= 1 + x + x^3
+pol:=[1,1,0,1,0,0,0];
+G:=[];
+Add(G, pol);
+mover:=pol;
+n:=Size(pol);
+tmp:=NullMat(1,7)[1];
+for i in [1..3] do
+    for j in [1..(n - 1)] do 
+        tmp[j + 1]:=mover[j];
+    od;
+    tmp[1]:=mover[n];
+    Add(G,tmp);
+    mover:=tmp;
+od;
+code:=[];
+Base:=[[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]];
+m:=Size(Base);
+for k in [1..m] do 
+    Add(code,Base[k] * G);
+od;
