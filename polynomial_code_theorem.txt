@@ -1,0 +1,41 @@
+# 
+# Code 5
+# cryptography
+# polynomial code
+# https://en.wikipedia.org/wiki/Polynomial_code
+# Valentino Skobljanec
+#
+
+remainer:=function(K)
+local i, k, n, m, move, rem, f, g, L, l, start;
+n:=Length(K);
+m:=Length(K[1]);
+for i in [2..Length(K)] do
+    if Length(K[i]) <> m then
+        return false;
+    fi;
+od;
+k:=Random([1..n]);
+move:=Random([2..m - 1]);
+x:=Indeterminate(Rationals,"x");;
+f:=0;
+for i in [1..Length(K[1])] do
+    f:=f + K[k][i] * (x^(i - 1));
+od;
+L:=[];
+start:=m + 1 - move;
+for i in [start..start + m - 1] do
+    l:=i;
+    if i > m then
+        l:=i mod m;
+    fi;
+    Add(L, K[k][l]);
+od;
+g:=0;
+for i in [1..Length(L)] do
+    g:=g + L[i] * (x^(i - 1));
+od;
+if ((g -  x^(move) * f) mod (x^n - 1)) = 0 then
+    Print("Teorem vrijedi, ostatak: ", x^(move) * f);
+fi;
+end;
