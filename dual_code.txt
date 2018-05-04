@@ -1,5 +1,5 @@
 # 
-# Code 7
+# Code 9
 # coding theory
 # dual code
 # https://en.wikipedia.org/wiki/Dual_code
